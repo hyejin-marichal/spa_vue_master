@@ -14,11 +14,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 export default {
   name: 'CitiesMap',
-  data() {
-    return {
-      accessToken: "pk.eyJ1IjoiaGptYXJpY2hhbCIsImEiOiJja2w5ODd0MnQwNzYzMm5vb3g3NmY2ZGt0In0.UI6GQiO0BtxHM6VncDE3BQ",
-    };
-  },
+
   methods: {
     loadCities(citiesData) {
       for (const city of citiesData) {
@@ -29,7 +25,7 @@ export default {
   },
   mounted() {
 
-    mapboxgl.accessToken = this.accessToken;
+    mapboxgl.accessToken = "pk.eyJ1IjoiaGptYXJpY2hhbCIsImEiOiJja2w5ODd0MnQwNzYzMm5vb3g3NmY2ZGt0In0.UI6GQiO0BtxHM6VncDE3BQ";
 
     this.map = new mapboxgl.Map({
       container: "map",
