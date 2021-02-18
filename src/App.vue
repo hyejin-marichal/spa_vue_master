@@ -11,11 +11,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 
-export default {
-  name: 'App'
-}
+import { Options, Vue } from 'vue-class-component';
+import CitiesList from './components/CitiesList.vue';
+
+@Options({
+  components: {
+    CitiesList,
+  },
+})
+export default class App extends Vue {}
 </script>
 
 <style>

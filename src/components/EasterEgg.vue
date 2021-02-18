@@ -9,10 +9,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import axios from 'axios';
+  import {defineComponent} from 'vue';
 
-  export default {
+  export default defineComponent ({
     name: 'EasterEgg',
     data() {
       return {
@@ -23,7 +24,7 @@
       }
     },
     methods: {
-      refreshQuote() {
+      refreshQuote():void {
         console.log('created');
         this.loading = true;
         axios.get('https://kaamelott.hotentic.com/api/random').then((resp) => {
@@ -32,8 +33,8 @@
         });
       }
     },
-    created() {
+    created():void {
       this.refreshQuote();
     }
-  }
+  })
 </script>
