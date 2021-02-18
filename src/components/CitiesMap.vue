@@ -7,10 +7,9 @@
 
 <script>
 import axios from "axios";
-//import Mapbox from 'mapbox-gl-vue';
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-//import {onMounted} from "vue";
+
 
 export default {
   name: 'CitiesMap',
