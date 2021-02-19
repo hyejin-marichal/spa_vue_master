@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ name }}</h2>
+    <h2>{{ $name }}</h2>
     <p>Temps : {{ weather }} - Température : {{ temperature }}°C</p>
     <p><em>Dernière mise à jour : {{ currentDateTime() }}</em></p>
   </div>

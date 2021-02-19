@@ -4,9 +4,12 @@ import CitiesList from "../components/CitiesList.vue";
 import CitiesMap from "../components/CitiesMap.vue";
 import City from "../components/City.vue";
 import EasterEgg from "../components/EasterEgg.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
 
 const routes = [
+
   { path: '/villes', component: CitiesList },
+  { path: '/', component: CitiesList},
   { path: '/carte', component: CitiesMap },
   { path: '/ville', component: City },
   { path: '/onenagros', component: EasterEgg}

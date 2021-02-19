@@ -6,46 +6,37 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import {defineComponent} from 'vue';
-import {onMounted} from "vue";
+// eslint-disable-next-line no-unused-vars
+import City from "@/store/city";
 
-export default defineComponent( {
+
+export default defineComponent({
   name: 'CitiesMap',
-  setup() {
-    onMounted(() => {
-      mapboxgl.accessToken =
-          "pk.eyJ1IjoiaGptYXJpY2hhbCIsImEiOiJja2w5ODd0MnQwNzYzMm5vb3g3NmY2ZGt0In0.UI6GQiO0BtxHM6VncDE3BQ";
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "https://maps.hotentic.com/styles/isere/style.json",
-        center: [process.env.VUE_APP_DEFAULT_LONGITUDE, process.env.VUE_APP_DEFAULT_LATITUDE],
-        zoom: 10,
-      });
-      map.on('load', () => {
-        const mapboxgl = require('mapbox-gl/dist/mapbox-gl');
-        let cities :any[] = [];
-
-        axios
-            .get('https://api.openweathermap.org/data/2.5/find?lat='+process.env.VUE_APP_DEFAULT_LATITUDE+'&lon=' + process.env.VUE_APP_DEFAULT_LONGITUDE + '&cnt=20&cluster=yes&lang=fr&units=metric&APPID=' + process.env.VUE_APP_OW_APP_ID)
-            .then((citiesData) => {
-              for (const {name, coord: {lat, lon}, weather: [{description: weather, icon: icon}], main: {temp: temperature}, dt: updatedAt
-              } of citiesData.data.list) {cities.push({name, lat, lon, weather, icon, temperature, updatedAt: new Date(updatedAt * 1000)});}
-              cities.forEach(city => {
-                let el = document.createElement('img');
-                el.src = `https://openweathermap.org/img/wn/${city.icon}@2x.png`;
-                el.classList.add('marker');
-                el.title = `${city.name} - ${city.temperature}°C`;
-                new mapboxgl.Marker(el)
-                    .setLngLat([city.lon, city.lat])
-                    .addTo(map);
-              });
-            });
+  mounted() {
+    mapboxgl.accessToken =
+        "pk.eyJ1IjoiaGptYXJpY2hhbCIsImEiOiJja2w5ODd0MnQwNzYzMm5vb3g3NmY2ZGt0In0.UI6GQiO0BtxHM6VncDE3BQ";
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "https://maps.hotentic.com/styles/isere/style.json",
+      center: [process.env.VUE_APP_DEFAULT_LONGITUDE, process.env.VUE_APP_DEFAULT_LATITUDE],
+      zoom: 10,
+    });
+    map.on('load', async () => {
+      const mapboxgl = require('mapbox-gl/dist/mapbox-gl');
+      await this.$store.dispatch('getCities')
+      this.$store.state.cities.forEach((city: City) => {
+        let el = document.createElement('img');
+        el.src = `https://openweathermap.org/img/wn/${city.icon}@2x.png`;
+        el.classList.add('marker');
+        el.title = `${city.name} - ${city.temperature}°C`;
+        new mapboxgl.Marker(el)
+            .setLngLat([city.lon, city.lat])
+            .addTo(map);
       });
     });
-    return {};
   },
 });
 </script>
