@@ -16,7 +16,7 @@
       ></l-tile-layer>
 
       <l-marker v-for="city in $store.state.cities" :lat-lng="[city.lat, city.lon]" :key="city.name">
-        <l-icon :icon-url="`https://openweathermap.org/img/wn/${city.icon}.png`" :icon-size="iconSize" />
+        <l-icon :icon-url="`https://openweathermap.org/img/wn/${city.icon}.png`" :icon-size="iconSize"/>
       </l-marker>
     </l-map>
   </div>
@@ -43,7 +43,7 @@ export default defineComponent({
     const iconWidth = 50;
     const iconHeight = 50;
     return {
-      zoom:12 ,
+      zoom: 12,
       iconWidth,
       iconHeight,
     }
@@ -61,7 +61,9 @@ export default defineComponent({
   },
 
   mounted() {
-    this.$store.dispatch('getCities')
+    setInterval(() => {
+      this.$store.dispatch('getCities')
+    }, 5000)
   }
   // mounted() {
   //   mapboxgl.accessToken =
