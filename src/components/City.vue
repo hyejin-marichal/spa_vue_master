@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>{{ $name }}</h2>
+    <h2>{{ name }}</h2>
     <p>Temps : {{ weather }} - Température : {{ temperature }}°C</p>
-    <p><em>Dernière mise à jour : {{ currentDateTime() }}</em></p>
+    <p><em>Dernière mise à jour : {{ currentDateTime(updatedAt) }}</em></p>
   </div>
 </template>
 
@@ -18,12 +18,12 @@ export default defineComponent({
     name: String,
     weather: String,
     temperature: Number,
-    updatedAt: Date
+    updatedAt: [String, Date]
   },
   methods: {
-    currentDateTime() {
+    currentDateTime(updatedAt: string) {
       moment.locale("fr");
-      return moment(this.updatedAt).fromNow();
+      return moment(updatedAt).fromNow();
     }
   }
 })
