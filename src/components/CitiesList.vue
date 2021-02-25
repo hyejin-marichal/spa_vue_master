@@ -1,8 +1,13 @@
 <template>
-  <div><CityAdd/></div>
+  <div>
+    <CityAdd/>
+  </div>
+  <h1>filter</h1>
+  <div><input v-model="searchQuery"></div>
+
   <div>
     <h1>Liste des villes</h1>
-    <City v-for="city of $store.state.cities" :key="city.id" :name="city.name" :weather="city.weather"
+    <City v-for="city of $store.getters.resFiltCities(searchQuery)" :key="city.id" :id="city.id" :name="city.name" :weather="city.weather"
           :temperature="city.temperature" :updated-at="city.updatedAt"></City>
   </div>
 
@@ -16,13 +21,20 @@ import CityAdd from "./CityAdd.vue";
 
 export default defineComponent({
   name: 'CitiesList',
+  data() {
+    return {
+      searchQuery: ''
+    }
+  },
   components: {
     City,
     CityAdd
-
   },
   mounted() {
     this.$store.dispatch('getCities')
+    setInterval(() => {
+      this.$store.dispatch('getCities')
+    }, 300000)
   }
 })
 </script>

@@ -13,15 +13,30 @@
 
 <script lang="ts">
 
-import { Options, Vue } from 'vue-class-component';
+import {Options, Vue} from 'vue-class-component';
 import CitiesList from './components/CitiesList.vue';
+// import {mapMutations} from "vuex";
+
+// import {mapMutations} from "vuex";
+
 
 @Options({
+  name: 'App',
   components: {
     CitiesList,
   },
+
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+
+  mounted() {
+    this.$store.subscribe((mutation: any, state: any) => {
+      console.log(mutation);
+      console.log(state);
+      localStorage.setItem('cities', JSON.stringify(state.cities));
+    });
+  }
+}
 </script>
 
 <style>

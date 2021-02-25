@@ -61,9 +61,10 @@ export default defineComponent({
   },
 
   mounted() {
+    this.$store.dispatch('getCities')
     setInterval(() => {
       this.$store.dispatch('getCities')
-    }, 5000)
+    }, 300000)
   }
   // mounted() {
   //   mapboxgl.accessToken =

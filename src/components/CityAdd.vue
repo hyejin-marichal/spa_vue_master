@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h1>Add a city!</h1>
+    <h1>Get weather </h1>
+
     <form @submit.prevent="onSubmit">
       <input type="text" placeholder="Enter a city..." v-model="cityName">
-      <button type="submit">Add City</button>
+      <button type="submit">search</button>
     </form>
+
   </div>
 </template>
 
@@ -23,7 +25,11 @@ export default defineComponent({
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('addCity',  this.cityName)
+      if (this.cityName === null || this.cityName === '') {
+        alert("Enter a city name")
+      } else {
+        this.$store.dispatch('addCity', this.cityName)
+      }
     }
   }
 })
@@ -31,7 +37,7 @@ export default defineComponent({
 
 <style scoped>
 h1 {
-  margin: 40px 0 0;
+  margin: 20px;
 }
 
 form {
